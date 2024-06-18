@@ -20,6 +20,6 @@ if [ -f /usr/bin/apt ]; then
     echo "**** Installing packages ****"
     echo "\
         mediainfo \
-        mkvtoolnix \   
+        mkvtoolnix \
         unzip" >> /mod-repo-packages-to-install.list
 fi

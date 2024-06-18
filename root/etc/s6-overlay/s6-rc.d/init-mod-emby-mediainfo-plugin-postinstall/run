@@ -5,8 +5,8 @@
 # init-mods-end depends on this script so that later init and services wait until this script exits
 
 echo "**** Installing BIF Tool ****"
-curl -o \
-  /tmp/biftool_linux.zip -L \
-  "https://github.com/rokudev/samples/raw/master/utilities/bif%20tool/biftool_linux.zip" && \
+curl -L \
+  "https://github.com/rokudev/samples/raw/master/utilities/bif%20tool/biftool_linux.zip" \
+  -o /tmp/biftool_linux.zip && \
   cd /tmp && \
   unzip biftool_linux.zip -d /usr/bin

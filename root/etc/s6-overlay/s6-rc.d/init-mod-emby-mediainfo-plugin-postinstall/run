@@ -4,9 +4,12 @@
 # so it can take advantage of packages installed
 # init-mods-end depends on this script so that later init and services wait until this script exits
 
+# unzip -uo is used to only install biftool_linux.zip if there's a newer 
+# version if it's already installed in the container.  Even though Roku hasn't updated
+# the zip in 5 years, this should handle any future changes.
 echo "**** Installing BIF Tool ****"
 curl -L \
   "https://github.com/rokudev/samples/raw/master/utilities/bif%20tool/biftool_linux.zip" \
   -o /tmp/biftool_linux.zip && \
   cd /tmp && \
-  unzip biftool_linux.zip -d /usr/bin
+  unzip -uo biftool_linux.zip -d /usr/bin

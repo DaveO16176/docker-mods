@@ -3,7 +3,7 @@ name: Build Image
 on: [push, pull_request, workflow_dispatch]
 
 env:
-  ENDPOINT: "user/endpoint"
+  ENDPOINT: "daveoh16/emby-mediainfo-plugin"
   BRANCH: "master"
 
 jobs:

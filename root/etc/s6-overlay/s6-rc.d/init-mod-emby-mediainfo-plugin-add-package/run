@@ -18,14 +18,13 @@ fi
 # Ubuntu
 if [ -f /usr/bin/apt ]; then
 
-    if [ ${MKV_NEWER_VERSION} == "TRUE" ]; then
-        echo "Add newest version of MKVToolNix to package list"
-        PACKAGES = "mkvtoolnix ${PACKAGES}"
-        PACKAGES = "mkvtoolnix-gui ${PACKAGES}"
+    if [ $MKV_NEWER_VERSION == "TRUE" ]; then
+        echo "Add newest version of MKVToolNix to package list."
+        PACKAGES = "mkvtoolnix mkvtoolnix-gui"
     else  
         // Check to see if mkvpropedit is installed or if mkvpropedit installed and check to see if version 70.0 is installed.
         if [ ! -f /usr/bin/mkvpropedit ] || [[ -f /usr/bin/mkvpropedit ] && [ mkvpropedit --version | grep -qPo "[\d]+.[\d]+" != "70.0" ]]; then
-            echo "**** Add version 70.0 of MKVToolNIX to package list ****"
+            echo "**** Add version 70.0 of MKVToolNIX to package list. ****"
 
             # Check for MKVToolNix repository
             if [ ! -f /etc/apt/sources.list.d/mkvtoolnix.download.list ] ; then
@@ -33,8 +32,10 @@ if [ -f /usr/bin/apt ]; then
 	            curl -o /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
 
 	            # Add MKVToolNix repository
-	            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main \
-                deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" >> /etc/apt/sources.list.d/mkvtoolnix.download.list
+	            echo "\
+                deb [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main \
+                deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" \
+                >> /etc/apt/sources.list.d/mkvtoolnix.download.list
             fi
 
             if ! grep -E -q 'deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main' /etc/apt/sources.list /etc/apt/sources.list.d/*; then
@@ -50,16 +51,15 @@ if [ -f /usr/bin/apt ]; then
                 echo "deb-src http://archive.ubuntu.com/ubuntu/ jammy universe" >> /etc/apt/sources.list
             fi
 
-            PACKAGES="mkvtoolnix=70.0.0-0~ubuntu2204bunkus01 ${PACKAGES}"
-            PACKAGES="mkvtoolnix-gui=70.0.0-0~ubuntu2204bunkus01 ${PACKAGES}
+            PACKAGES = "mkvtoolnix=70.0.0-0~ubuntu2204bunkus01 mkvtoolnix-gui=70.0.0-0~ubuntu2204bunkus01"
         else
-            echo "**** MKVToolNix already installed ****"
+            echo "**** MKVToolNix already installed. ****"
         fi
     fi
 
     echo "**** Installing packages ****"
     echo "\
-    ${PACKAGES} \
+    $PACKAGES \
     mediainfo \
     unzip" >> /mod-repo-packages-to-install.list
 fi

@@ -23,11 +23,12 @@ if [ -f /usr/bin/apt ]; then
         PACKAGES = "mkvtoolnix mkvtoolnix-gui"
     else  
         // Check to see if mkvpropedit is installed or if mkvpropedit installed and check to see if version 70.0 is installed.
-        if [ ! -f /usr/bin/mkvpropedit ] || [( -f /usr/bin/mkvpropedit ) && ( mkvpropedit --version | grep -qPo "[\d]+.[\d]+" != "70.0" )]; then
+        if [[ ! -f /usr/bin/mkvpropedit  ||  mkvpropedit --version | grep -q "70.0" ]]; then
+
             echo "**** Add version 70.0 of MKVToolNIX to package list. ****"
 
             # Check for MKVToolNix repository
-            if [ ! -f /etc/apt/sources.list.d/mkvtoolnix.download.list ] ; then
+            if [ ! -f /etc/apt/sources.list.d/mkvtoolnix.download.list ]; then
 	            # Import MKVToolNix GPG key 
 	            curl -o /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
 
@@ -38,16 +39,16 @@ if [ -f /usr/bin/apt ]; then
                 >> /etc/apt/sources.list.d/mkvtoolnix.download.list
             fi
 
-            if ! grep -E -q 'deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main' /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+            if [ ! grep -E -q "deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main" /etc/apt/sources.list /etc/apt/sources.list.d/* ]; then
                 echo "deb http://archive.ubuntu.com/ubuntu/ jammy main" >> /etc/apt/sources.list
             fi
-            if ! grep -E -q 'deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*universe' /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+            if [ ! grep -E -q "deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*universe" /etc/apt/sources.list /etc/apt/sources.list.d/* ]; then
                 echo "deb http://archive.ubuntu.com/ubuntu/ jammy universe" >> /etc/apt/sources.list
             fi
-            if ! grep -E -q 'deb-src\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main' /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+            if [ ! grep -E -q "deb-src\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main" /etc/apt/sources.list /etc/apt/sources.list.d/* ]; then
                 echo "deb-src http://archive.ubuntu.com/ubuntu/ jammy main" >> /etc/apt/sources.list
             fi
-            if ! grep -E -q 'deb-src\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*universe' /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+            if [ ! grep -E -q "deb-src\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*universe" /etc/apt/sources.list /etc/apt/sources.list.d/* ]; then
                 echo "deb-src http://archive.ubuntu.com/ubuntu/ jammy universe" >> /etc/apt/sources.list
             fi
 

@@ -34,11 +34,10 @@ if [ -f /usr/bin/apt ]; then
 	            curl -o /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
 
 	            # Add MKVToolNix repository
-#	            echo "\
-#                deb [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main \
-#                deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" \
-#                >> /etc/apt/sources.list.d/mkvtoolnix.download.list
-                echo "deb [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" >> /etc/apt/sources.list.d/mkvtoolnix.download.list
+	            echo "\
+                deb [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main \
+                deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" \
+                >> /etc/apt/sources.list.d/mkvtoolnix.download.list
             fi
 
             if ! grep -E -q "deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then

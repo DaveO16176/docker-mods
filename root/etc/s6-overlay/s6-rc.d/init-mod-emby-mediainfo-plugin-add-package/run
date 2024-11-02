@@ -23,7 +23,7 @@ if [ -f /usr/bin/apt ]; then
         PACKAGES="mkvtoolnix mkvtoolnix-gui"
     else  
         # Check to see if mkvpropedit is installed or if mkvpropedit installed and check to see if version 70.0 is installed.
-        if [ ! -f /usr/bin/mkvpropedit ] || mkvpropedit --version | ( ! grep -q "70.0" ); then
+        #if [ ! -f /usr/bin/mkvpropedit ] || mkvpropedit --version | ( ! grep -q "70.0" ); then
 
             echo "**** Add version 70.0 of MKVToolNIX to package list. ****"
 
@@ -53,8 +53,8 @@ if [ -f /usr/bin/apt ]; then
             fi
 
             PACKAGES="mkvtoolnix=70.0.0-0~ubuntu2204bunkus01 mkvtoolnix-gui=70.0.0-0~ubuntu2204bunkus01"
-        else
-            echo "**** MKVToolNix already installed. ****"
+        #else
+        #    echo "**** MKVToolNix already installed. ****"
         fi
     fi
 

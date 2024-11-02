@@ -22,40 +22,38 @@ if [ -f /usr/bin/apt ]; then
         echo "Add newest version of MKVToolNix to package list."
         PACKAGES="mkvtoolnix mkvtoolnix-gui"
     else  
-        # Check to see if mkvpropedit is installed or if mkvpropedit installed and check to see if version 70.0 is installed.
-        #if [ ! -f /usr/bin/mkvpropedit ] || mkvpropedit --version | ( ! grep -q "70.0" ); then
+        echo "**** Add version 70.0 of MKVToolNIX to package list. ****"
 
-            echo "**** Add version 70.0 of MKVToolNIX to package list. ****"
+        # Check for MKVToolNix repository
+        if [ ! -f /etc/apt/sources.list.d/mkvtoolnix.download.list ]; then
+	        # Import MKVToolNix GPG key 
+	        curl -o /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
 
-            # Check for MKVToolNix repository
-            if [ ! -f /etc/apt/sources.list.d/mkvtoolnix.download.list ]; then
-	            # Import MKVToolNix GPG key 
-	            curl -o /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
+	        # Add MKVToolNix repository
+	        echo "\
+            deb [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main \
+            deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" \
+            >> /etc/apt/sources.list.d/mkvtoolnix.download.list
+        fi
 
-	            # Add MKVToolNix repository
-	            echo "\
-                deb [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main \
-                deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" \
-                >> /etc/apt/sources.list.d/mkvtoolnix.download.list
-            fi
+        if ! grep -E -q "deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then
+            echo "deb http://archive.ubuntu.com/ubuntu/ jammy main" >> /etc/apt/sources.list
+        fi
+        
+        if ! grep -E -q "deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*universe" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then
+            echo "deb http://archive.ubuntu.com/ubuntu/ jammy universe" >> /etc/apt/sources.list
+        fi
+        
+        if ! grep -E -q "deb-src\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then
+            echo "deb-src http://archive.ubuntu.com/ubuntu/ jammy main" >> /etc/apt/sources.list
+        fi
+        
+        if ! grep -E -q "deb-src\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*universe" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then
+            echo "deb-src http://archive.ubuntu.com/ubuntu/ jammy universe" >> /etc/apt/sources.list
+        fi
 
-            if ! grep -E -q "deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then
-                echo "deb http://archive.ubuntu.com/ubuntu/ jammy main" >> /etc/apt/sources.list
-            fi
-            if ! grep -E -q "deb\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*universe" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then
-                echo "deb http://archive.ubuntu.com/ubuntu/ jammy universe" >> /etc/apt/sources.list
-            fi
-            if ! grep -E -q "deb-src\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*main" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then
-                echo "deb-src http://archive.ubuntu.com/ubuntu/ jammy main" >> /etc/apt/sources.list
-            fi
-            if ! grep -E -q "deb-src\s+http://archive\.ubuntu\.com/ubuntu/ +jammy.*universe" /etc/apt/sources.list /etc/apt/sources.list.d/* ; then
-                echo "deb-src http://archive.ubuntu.com/ubuntu/ jammy universe" >> /etc/apt/sources.list
-            fi
-
-            PACKAGES="mkvtoolnix=70.0.0-0~ubuntu2204bunkus01 mkvtoolnix-gui=70.0.0-0~ubuntu2204bunkus01"
-        #else
-        #    echo "**** MKVToolNix already installed. ****"
-        #fi
+        PACKAGES="mkvtoolnix=70.0.0-0~ubuntu2204bunkus01 mkvtoolnix-gui=70.0.0-0~ubuntu2204bunkus01"
+    
     fi
 
     echo "**** Installing packages ****"

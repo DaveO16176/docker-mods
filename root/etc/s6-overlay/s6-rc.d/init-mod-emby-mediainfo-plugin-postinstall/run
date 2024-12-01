@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bash
 
-if [[ ! -f /usr/bin/biftool ]]; then
+if [ ! -f /usr/bin/biftool ]; then
   echo "**** Installing BIF Tool ****"
   curl -fL \
     "https://github.com/rokudev/samples/raw/master/utilities/bif%20tool/biftool_linux.zip" \

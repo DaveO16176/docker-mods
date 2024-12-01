@@ -53,6 +53,13 @@ else
     
 fi
 
+# This is just a test to explore the behavior when MKV_NEW_VERSION is set to true and then not set to true.
+if [ ! -f /usr/bin/biftool ]; then
+  echo "**** BIF Tool not installed****"
+else
+  echo "**** BIF Tool already installed ****"
+fi
+
 echo "**** Installing packages ****"
 echo "\
 $PACKAGES \
